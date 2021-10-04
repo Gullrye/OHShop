@@ -68,6 +68,22 @@ const routes = [
     meta: {
       index: 2
     }
+  },
+  {
+    path: '/product-list',
+    name: 'product-list',
+    meta: {
+      index: 2
+    },
+    component: () => import(/* webpackChunkName: "product-list" */ '../views/ProductList.vue')
+  },
+  {
+    path: '/product/:id',
+    name: 'product',
+    meta: {
+      index: 3
+    },
+    component: () => import(/* webpackChunkName: "product" */ '../views/ProductDetail.vue')
   }
 ]
 

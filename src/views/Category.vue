@@ -4,7 +4,9 @@
       <i class="iconfont icon-back" @click="goHome"></i>
       <div class="header-search">
         <i class="iconfont icon-search"></i>
-        <span class="search-title">忙趁东风放纸鸢</span>
+        <router-link to="./product-list?from=category">
+          <span class="search-title">忙趁东风放纸鸢</span>
+        </router-link>
       </div>
       <i class="iconfont icon-menu"></i>
     </div>
@@ -20,8 +22,9 @@
       <!-- 和导航栏绑定，可进行拖动切换的分类页面 -->
       <van-swipe @change="onChange" :loop='false' ref='categorySwipe' :show-indicators='false'>
         <van-swipe-item v-for="item in categoryData" :key='item.categoryId'>
-          <div class="product-item" v-for='it in item.secondList' :key='it.categoryId'>
-            <i class="product-img iconfont icon-erhaohaiou"></i>
+          <div class="product-item" v-for='it in item.secondList' :key='it.categoryId' @click='selectProduct(it)'>
+            <div class="product-img">
+              <img src="//s.weituibao.com/1583585285461/cs.png" alt=""></div>
             <span class="product-title">{{ it.categoryName }}</span>
           </div>
         </van-swipe-item>
@@ -46,7 +49,9 @@ export default {
     ListScroll
   },
   methods: {
-    goHome () {},
+    goHome () {
+      this.$router.push({ path: 'home' })
+    },
     // 重构分类页面，处理 categories 接口数据
     dealCategoryData (data) {
       const newData = []
@@ -61,16 +66,23 @@ export default {
           n++
         })
       })
-      console.log(newData)
+      // console.log(newData)
       return newData
     },
     onChange (pageIndex) {
       // 让导航栏跟着分类页面的拖动进行合理的位置切换
-      if (pageIndex >= 5) {
-        // console.log(this.$refs.scrollWrapper) // 可知实例为 scroll
-        this.$refs.scrollWrapper.scroll.scrollTo(this.$refs.scrollWrapper.scroll.maxScrollX, 0)
+      // console.log(this.$refs.scrollWrapper) // 可知实例为 scroll
+      const navScroll = this.$refs.scrollWrapper.scroll
+      // console.log(navScroll.maxScrollX)
+      // navScroll.on('scroll', () => {
+      //   console.log(navScroll.x)
+      // })
+      if (pageIndex >= 4 && pageIndex <= 8) {
+        navScroll.scrollTo(-60 * (pageIndex - 2), 0)
+      } else if (pageIndex > 8) {
+        navScroll.scrollTo(navScroll.maxScrollX, 0)
       } else {
-        this.$refs.scrollWrapper.scroll.scrollTo(this.$refs.scrollWrapper.scroll.minScrollX, 0)
+        navScroll.scrollTo(navScroll.minScrollX, 0)
       }
       this.activeIndex = pageIndex
     },
@@ -80,6 +92,9 @@ export default {
     handleLiClick (clickIndex) {
       this.activeIndex = clickIndex
       this.$refs.categorySwipe.swipeTo(clickIndex)
+    },
+    selectProduct (it) {
+      this.$router.push({ path: `product-list?categoryId=${it.categoryId}` })
     }
   },
   async mounted () {
@@ -87,6 +102,8 @@ export default {
     this.categoryData = this.dealCategoryData(data)
   }
 }
+
+// 此页面实际上可以用 Vant 的 Tab 标签页进行制作
 </script>
 
 <style lang="less" scoped>
@@ -140,7 +157,7 @@ export default {
           height: 30px;
           line-height: 30px;
           margin: 10px 8px;
-          padding: 0 10px;
+          padding: 0 15px;
           text-align: center;
           font-size: 14px;
           &.active {
@@ -162,9 +179,9 @@ export default {
         width: 33%;
         height: 90px;
         font-size: 14px;
-        .product-img {
+        .product-img img {
+          width: 50px;
           padding: 5px 0;
-          font-size: 40px;
           color: @primary;
         }
         .product-title {

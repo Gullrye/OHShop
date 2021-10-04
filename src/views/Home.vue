@@ -7,7 +7,9 @@
       <div class="header-search">
         <span class="app-name">OH 商城</span>
         <i class="iconfont icon-search"></i>
-        <span class="search-title">拂堤杨柳醉春烟</span>
+        <router-link to="./product-list?from=home">
+          <span class="search-title">拂堤杨柳醉春烟</span>
+        </router-link>
       </div>
       <router-link to="/login" class="login" v-if="!isLogin">
         <span>登录</span>
@@ -26,8 +28,8 @@
     <div class="good">
       <div class="good-header">新品上线</div>
       <div class="good-box">
-        <div class="good-item" v-for="item in newGoodses" :key="item.goodsId">
-          <img :src="item.goodsCoverImg" />
+        <div class="good-item" v-for="item in newGoodses" :key="item.goodsId" @click="goToDetail(item)">
+          <img :src="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">￥ {{ item.sellingPrice }}</div>
@@ -38,8 +40,8 @@
     <div class="good">
       <div class="good-header">热门商品</div>
       <div class="good-box">
-        <div class="good-item" v-for="item in hots" :key="item.goodsId">
-          <img :src='getRealImg(item)' />
+        <div class="good-item" v-for="item in hots" :key="item.goodsId" @click="goToDetail(item)">
+          <img :src='getRealImg(item.goodsCoverImg)' />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">￥ {{ item.sellingPrice }}</div>
@@ -50,8 +52,8 @@
     <div class="good">
       <div class="good-header">最新推荐</div>
       <div class="good-box">
-        <div class="good-item" v-for="item in recommends" :key="item.goodsId">
-          <img :src="getRealImg(item)" />
+        <div class="good-item" v-for="item in recommends" :key="item.goodsId" @click="goToDetail(item)">
+          <img :src="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">￥ {{ item.sellingPrice }}</div>
@@ -155,8 +157,8 @@ export default {
       const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
       scrollTop > 130 ? this.headerScroll = true : this.headerScroll = false
     },
-    getRealImg (imgItem) {
-      return imgItem.goodsCoverImg.includes('com') ? imgItem.goodsCoverImg : `//backend-api-01.newbee.ltd${imgItem.goodsCoverImg}`
+    goToDetail (item) {
+      this.$router.push({ path: `product/${item.goodsId}` })
     }
   }
 }
