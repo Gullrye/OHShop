@@ -12,15 +12,15 @@
     </div>
     <div class="category-content">
       <!-- 可水平滚动的导航栏 -->
-      <list-scroll class="category-nav-wrapper" :scrollX="true" :probeType='3' ref='scrollWrapper'>
+      <!-- <list-scroll class="category-nav-wrapper" :scrollX="true" :probeType='3' ref='scrollWrapper'>
         <ul class="category-nav">
           <li v-for="(item, index) in categoryData" :key='item.categoryId' :class='{ active: beActive(index) }' @click='handleLiClick(index)'>
             {{ item.categoryName }}
           </li>
         </ul>
-      </list-scroll>
+      </list-scroll> -->
       <!-- 和导航栏绑定，可进行拖动切换的分类页面 -->
-      <van-swipe @change="onChange" :loop='false' ref='categorySwipe' :show-indicators='false'>
+      <!-- <van-swipe @change="onChange" :loop='false' ref='categorySwipe' :show-indicators='false'>
         <van-swipe-item v-for="item in categoryData" :key='item.categoryId'>
           <div class="product-item" v-for='it in item.secondList' :key='it.categoryId' @click='selectProduct(it)'>
             <div class="product-img">
@@ -28,25 +28,48 @@
             <span class="product-title">{{ it.categoryName }}</span>
           </div>
         </van-swipe-item>
-      </van-swipe>
+      </van-swipe> -->
+
+      <!-- 使用 vant tabs 中的标签栏滚动、切换动画、滑动切换来重写上边注释代码 -->
+      <van-tabs v-model="active" swipeable animated>
+        <van-tab
+          v-for="item in categoryData"
+          :key="item.categoryId"
+          :title="item.categoryName"
+        >
+          <div
+            class="product-item"
+            v-for="it in item.secondList"
+            :key="it.categoryId"
+            @click="selectProduct(it)"
+          >
+            <div class="product-img">
+              <img src="//s.weituibao.com/1583585285461/cs.png" alt="" />
+            </div>
+
+            <span class="product-title">{{ it.categoryName }}</span>
+          </div>
+        </van-tab>
+      </van-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import ListScroll from '../components/ListScroll.vue'
+// import ListScroll from '../components/ListScroll.vue'
 import { getCategory } from '../service/good'
 export default {
   name: 'Category',
   data () {
     return {
       categoryData: [],
-      activeIndex: 0,
-      isMove: false
+      active: 0
+      // activeIndex: 0,
+      // isMove: false
     }
   },
   components: {
-    ListScroll
+    // ListScroll
   },
   methods: {
     goHome () {
@@ -69,30 +92,31 @@ export default {
       // console.log(newData)
       return newData
     },
-    onChange (pageIndex) {
-      // 让导航栏跟着分类页面的拖动进行合理的位置切换
-      // console.log(this.$refs.scrollWrapper) // 可知实例为 scroll
-      const navScroll = this.$refs.scrollWrapper.scroll
-      // console.log(navScroll.maxScrollX)
-      // navScroll.on('scroll', () => {
-      //   console.log(navScroll.x)
-      // })
-      if (pageIndex >= 4 && pageIndex <= 8) {
-        navScroll.scrollTo(-60 * (pageIndex - 2), 0)
-      } else if (pageIndex > 8) {
-        navScroll.scrollTo(navScroll.maxScrollX, 0)
-      } else {
-        navScroll.scrollTo(navScroll.minScrollX, 0)
-      }
-      this.activeIndex = pageIndex
-    },
-    beActive (navLiIndex) {
-      return navLiIndex === this.activeIndex
-    },
-    handleLiClick (clickIndex) {
-      this.activeIndex = clickIndex
-      this.$refs.categorySwipe.swipeTo(clickIndex)
-    },
+    // swipe 做切换页面时使用的函数，改用 vant tabs 后用不到了
+    // onChange (pageIndex) {
+    //   // 让导航栏跟着分类页面的拖动进行合理的位置切换
+    //   // console.log(this.$refs.scrollWrapper) // 可知实例为 scroll
+    //   const navScroll = this.$refs.scrollWrapper.scroll
+    //   // console.log(navScroll.maxScrollX)
+    //   // navScroll.on('scroll', () => {
+    //   //   console.log(navScroll.x)
+    //   // })
+    //   if (pageIndex >= 4 && pageIndex <= 8) {
+    //     navScroll.scrollTo(-60 * (pageIndex - 2), 0)
+    //   } else if (pageIndex > 8) {
+    //     navScroll.scrollTo(navScroll.maxScrollX, 0)
+    //   } else {
+    //     navScroll.scrollTo(navScroll.minScrollX, 0)
+    //   }
+    //   this.activeIndex = pageIndex
+    // },
+    // beActive (navLiIndex) {
+    //   return navLiIndex === this.activeIndex
+    // },
+    // handleLiClick (clickIndex) {
+    //   this.activeIndex = clickIndex
+    //   this.$refs.categorySwipe.swipeTo(clickIndex)
+    // },
     selectProduct (it) {
       this.$router.push({ path: `product-list?categoryId=${it.categoryId}` })
     }
@@ -148,45 +172,77 @@ export default {
   }
   .category-content {
     margin-top: 50px;
-    .category-nav-wrapper {
-      white-space: nowrap;
-      .category-nav {
-        display: inline-block;
-        li {
-          display: inline-block;
-          height: 30px;
-          line-height: 30px;
-          margin: 10px 8px;
-          padding: 0 15px;
-          text-align: center;
+    //   .category-nav-wrapper {
+    //     white-space: nowrap;
+    //     .category-nav {
+    //       display: inline-block;
+    //       li {
+    //         display: inline-block;
+    //         height: 30px;
+    //         line-height: 30px;
+    //         margin: 10px 8px;
+    //         padding: 0 15px;
+    //         text-align: center;
+    //         font-size: 14px;
+    //         &.active {
+    //           color: @primary;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    // .van-swipe {
+    //   padding-bottom: 50px;
+    //   .van-swipe-item {
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     .product-item {
+    //       display: flex;
+    //       flex-direction: column;
+    //       align-items: center;
+    //       width: 33%;
+    //       height: 90px;
+    //       font-size: 14px;
+    //       .product-img img {
+    //         width: 50px;
+    //         padding: 5px 0;
+    //         color: @primary;
+    //       }
+    //       .product-title {
+    //         text-align: center;
+    //         color: @primary;
+    //       }
+    //     }
+    // }
+    ::v-deep .van-tabs {
+      .van-tab {
+        width: 20%;
+      }
+      .van-tabs__line {
+        background-color: @primary;
+      }
+      .van-tab__pane-wrapper {
+        min-height: 400px;
+      }
+      .van-tab__pane {
+        display: flex;
+        flex-wrap: wrap;
+        .product-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 33%;
+          height: 90px;
           font-size: 14px;
-          &.active {
+          .product-img img {
+            width: 50px;
+            padding: 5px 0;
             color: @primary;
           }
-        }
-      }
-    }
-  }
-  .van-swipe {
-    padding-bottom: 50px;
-    .van-swipe-item {
-      display: flex;
-      flex-wrap: wrap;
-      .product-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 33%;
-        height: 90px;
-        font-size: 14px;
-        .product-img img {
-          width: 50px;
-          padding: 5px 0;
-          color: @primary;
-        }
-        .product-title {
-          text-align: center;
-          color: @primary;
+          .product-title {
+            text-align: center;
+            color: @primary;
+          }
         }
       }
     }
