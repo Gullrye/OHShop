@@ -17,10 +17,11 @@ export function getQueryString (name) {
   }
 }
 export function getRealImg (url) {
-  if (url && url.startsWith('http')) {
-    return url
+  const regexp = new RegExp('/goods-img.*', 'g')
+  if (regexp.test(url)) {
+    const newUrl = url.match(regexp)[0]
+    return `http://backend-api-01.newbee.ltd${newUrl}`
   } else {
-    url = `http://backend-api-01.newbee.ltd${url}`
     return url
   }
 }

@@ -35,7 +35,7 @@
       <van-goods-action-icon icon="chat-o" text="客服" />
       <van-goods-action-icon
         icon="cart-o"
-        :info="!count ? '' : count"
+        :badge="!count ? '' : count"
         @click="goTo()"
         text="购物车"
       />
@@ -110,25 +110,9 @@ export default {
 <style lang="less" scoped>
 @import "../common/style/mixin";
 .product-detail {
-  .detail-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10000;
-    .fj();
-    .wh(100%, 44px);
-    line-height: 44px;
-    padding: 0 10px;
-    .boxSizing();
-    color: #252525;
-    background: #fff;
-    border-bottom: 1px solid #dcdcdc;
-    .product-name {
-      font-size: 14px;
-    }
-  }
   .detail-content {
     margin-top: 44px;
+    padding-bottom: 80px;
     .detail-swipe-wrap {
       .my-swipe .van-swipe-item {
         img {
@@ -180,10 +164,10 @@ export default {
           }
         }
       }
-      .product-content {
+      ::v-deep .product-content {
         padding: 0 20px;
         img {
-          width: 100%;
+          width: 100%!important;
         }
       }
     }

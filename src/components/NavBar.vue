@@ -10,7 +10,9 @@
         <span>分类</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="cart">
-        <i class="iconfont icon-cart"></i>
+        <i class="iconfont icon-cart">
+          <van-badge :content="count"> </van-badge>
+        </i>
         <span>购物车</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="user">
@@ -22,7 +24,16 @@
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    count () {
+      return this.$store.state.cartCount === 0 ? '' : this.$store.state.cartCount
+    }
+  },
+  mounted () {
+    this.$store.dispatch('updateCart')
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -32,10 +43,13 @@ export default {}
   left: 0;
   bottom: 0;
   width: 100%;
+  height: 50px;
   padding: 5px 0;
   z-index: 1000;
   background-color: #fff;
-  transform: translateZ(0);
+  display: flex;
+  align-items: center;
+  .boxSizing();
   .nav-list {
     width: 100%;
     .fj();
@@ -56,6 +70,16 @@ export default {}
       }
       span {
         font-size: 12px;
+      }
+      .icon-cart {
+        position: relative;
+        margin: 0 auto;
+        .van-badge {
+          position: absolute;
+          box-sizing: border-box;
+          top: -20%;
+          right: -50%;
+        }
       }
     }
   }

@@ -221,8 +221,16 @@ export default {
       .van-tabs__line {
         background-color: @primary;
       }
+      .van-tabs__wrap {
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: 999;
+      }
       .van-tab__pane-wrapper {
-        min-height: 400px;
+        min-height: 90vh;
+        margin-top: 50px;
+        padding-bottom: 50px;
       }
       .van-tab__pane {
         display: flex;

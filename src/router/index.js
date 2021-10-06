@@ -84,6 +84,22 @@ const routes = [
       index: 3
     },
     component: () => import(/* webpackChunkName: "product" */ '../views/ProductDetail.vue')
+  },
+  {
+    path: '/create-order',
+    name: 'create-order',
+    meta: {
+      index: 2
+    },
+    component: () => import(/* webpackChunkName: "create-order" */ '../views/CreateOrder.vue')
+  },
+  {
+    path: '/address',
+    name: 'address',
+    meta: {
+      index: 2
+    },
+    component: () => import(/* webpackChunkName: "address" */ '../views/Address.vue')
   }
 ]
 
