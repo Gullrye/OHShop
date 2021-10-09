@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <s-header :name="关于我们"></s-header>
+    <s-header :name="'关于我们'"></s-header>
     <h1>关于我们</h1>
     <div class="intro">
       1......<br />
