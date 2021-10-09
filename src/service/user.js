@@ -15,5 +15,8 @@ function logout () {
 function register (params) {
   return axios.post('/user/register', params)
 }
+function editUserInfo (params) {
+  return axios.put('/user/info', params)
+}
 
-export { getUserInfo, login, logout, register }
+export { getUserInfo, login, logout, register, editUserInfo }

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { Toast } from 'vant'
-import router from '../router'
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '//47.99.134.126:28019/api/v1' : '//47.99.134.126:28019/api/v1'
 // `withCredentials` indicates whether or not cross-site Access-Control requests
@@ -18,9 +17,9 @@ axios.interceptors.response.use((res) => {
   }
   if (res.data.resultCode !== 200) {
     if (res.data.message) Toast.fail(res.data.message)
-    if (res.data.resultCode === 416) {
-      // 返回 416 代表没有登录状态，路由跳转到/login 页面
-      router.push({ path: '/login' })
+    if (res.data.resultCode === 416 && window.location.hash !== '#/home' && window.location.hash !== '#/category') {
+      // 返回 416 代表没有登录状态，路由跳转到/ login 页面
+      window.location.href = '/#/login'
     }
     return Promise.reject(res.data)
   }

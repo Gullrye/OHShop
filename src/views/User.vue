@@ -12,7 +12,7 @@
       </div>
     </div>
     <ul class="user-list">
-      <li @click="goTo('order')">
+      <li @click="goTo('order?from=user')">
         <span>我的订单</span>
         <i class="iconfont icon-arrow"></i>
       </li>
@@ -20,7 +20,7 @@
         <span>账号管理</span>
         <i class="iconfont icon-arrow"></i>
       </li>
-      <li @click="goTo('address?from=mine')">
+      <li @click="goTo('address?from=user')">
         <span>地址管理</span>
         <i class="iconfont icon-arrow"></i>
       </li>

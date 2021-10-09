@@ -3,11 +3,11 @@
     <s-header :name="'生成订单'" @callback="deleteLocal"></s-header>
     <div class="address-wrap">
       <div class="name" @click="goTo">
-        <span>'address.userName'</span>
-        <span>{'address.userPhone'</span>
+        <span>{{address.userName}}</span>
+        <span>{{address.userPhone}}</span>
       </div>
       <div class="address">
-        地址名字
+        {{ address.provinceName }} {{ address.cityName }} {{ address.regionName }} {{ address.detailAddress }}
       </div>
       <i class="iconfont icon-arrow"></i>
     </div>
@@ -68,7 +68,7 @@
 <script>
 import sHeader from '@/components/SimpleHeader'
 import { getByCartItemIds } from '../service/cart'
-import { getDefaultAddress, getAddressDetail } from '../service/address'
+import { getAddressDetail, getDefaultAddress } from '../service/address'
 import { createOrder, payOrder } from '../service/order'
 import { setLocal, getLocal } from '@/common/js/utils'
 export default {
@@ -93,16 +93,17 @@ export default {
       const { addressId, cartItemIds } = this.$route.query
       // id 会本地存储，查询字符串 id 优先获取，若没有则获取本地存储的 ids
       const _cartItemIds = cartItemIds ? JSON.parse(cartItemIds) : JSON.parse(getLocal('cartItemIds'))
+      console.log(_cartItemIds)
       setLocal('cartItemIds', JSON.stringify(_cartItemIds))
       const { data: list } = await getByCartItemIds({
         cartItemIds: _cartItemIds.join(',')
       })
       // addressId 存在的情况下，优先获取 addressId，否则获取默认地址接口
       const { data: address } = addressId ? await getAddressDetail(addressId) : await getDefaultAddress()
-      // if (!address) {
-      //   this.$router.push({ path: 'address' })
-      //   return
-      // }
+      if (!address) {
+        this.$router.push({ path: 'address' })
+        return
+      }
       this.cartList = list
       this.address = address
       this.$toast.clear()
@@ -129,7 +130,7 @@ export default {
       this.$router.push({ path: 'order' })
     },
     async payOrder (type) {
-      // this.$toast.loading
+      this.$toast.loading('正在支付...')
       await payOrder({ orderNo: this.orderNo, payType: type })
       this.$router.push({ path: 'order' })
     }
@@ -162,7 +163,7 @@ export default {
     .address {
       margin: 10px 0;
     }
-    .arrow {
+    .icon-arrow {
       position: absolute;
       right: 10px;
       top: 50%;

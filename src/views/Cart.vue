@@ -44,7 +44,7 @@
       </van-checkbox-group>
     </div>
 
-    <van-submit-bar :price="totalPrice" button-text="提交订单" @submit="onSubmit">
+    <van-submit-bar :price="totalPrice" button-text="提交订单" @submit="onSubmit" v-if="list.length">
       <van-checkbox v-model="checkAll" @click="allCheck">全选</van-checkbox>
     </van-submit-bar>
     <div class="empty" v-if="!list.length">
