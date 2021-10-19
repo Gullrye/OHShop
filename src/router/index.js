@@ -139,4 +139,11 @@ const router = new VueRouter({
   routes
 })
 
+router.afterEach((to, from) => {
+  console.log(to, from)
+  if (to.name === 'product') {
+    window.scrollTo(0, 0)
+  }
+})
+
 export default router
