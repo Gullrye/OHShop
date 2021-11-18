@@ -3,14 +3,14 @@
     <transition :name="transitionName">
       <router-view class="router-view" />
     </transition>
-    <nav-bar v-if='isShowNav'></nav-bar>
+    <nav-bar v-if="isShowNav"></nav-bar>
   </div>
 </template>
 
 <script>
 import NavBar from './components/NavBar.vue'
 export default {
-  data () {
+  data() {
     return {
       transitionName: 'slide-left',
       isShowNav: true,
@@ -21,7 +21,7 @@ export default {
     NavBar
   },
   watch: {
-    $route (to, from) {
+    $route(to, from) {
       if (this.showMenuList.includes(to.path)) {
         this.isShowNav = true
       } else {

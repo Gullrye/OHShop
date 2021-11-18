@@ -79,17 +79,17 @@ export default {
   components: {
     sHeader
   },
-  data () {
+  data() {
     return {
       detail: {},
       showPay: false
     }
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   methods: {
-    async init () {
+    async init() {
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true
@@ -100,7 +100,7 @@ export default {
       this.$toast.clear()
     },
     // 取消订单
-    cancelOrder (id) {
+    cancelOrder(id) {
       Dialog.confirm({
         title: '确认取消订单？'
       })
@@ -117,7 +117,7 @@ export default {
         })
     },
     // 确认订单
-    confirmOrder (id) {
+    confirmOrder(id) {
       Dialog.confirm({
         title: '是否确认订单？'
       })
@@ -134,15 +134,15 @@ export default {
         })
     },
     // 展示支付
-    showPayFn () {
+    showPayFn() {
       this.showPay = true
     },
-    async payOrder (id, type) {
+    async payOrder(id, type) {
       await payOrder({ orderNo: id, payType: type })
       this.showPay = false
       this.init()
     },
-    close () {
+    close() {
       Dialog.close()
     }
   }

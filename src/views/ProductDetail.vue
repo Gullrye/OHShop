@@ -59,7 +59,7 @@ import { addCart } from '../service/cart'
 import { getDetail } from '../service/good'
 export default {
   name: 'ProductDetail',
-  data () {
+  data() {
     return {
       detailData: {},
       detailSlideImgs: []
@@ -68,7 +68,7 @@ export default {
   components: {
     sHeader
   },
-  async mounted () {
+  async mounted() {
     const { id } = this.$route.params
     const { data } = await getDetail(id)
     this.detailData = data
@@ -76,13 +76,13 @@ export default {
     // console.log(data)
   },
   methods: {
-    goBack () {
+    goBack() {
       this.$router.go(-1)
     },
-    goTo () {
+    goTo() {
       this.$router.push({ path: '/cart' })
     },
-    async addCart () {
+    async addCart() {
       const { resultCode } = await addCart({
         goodsCount: 1,
         goodsId: this.detailData.goodsId
@@ -90,7 +90,7 @@ export default {
       if (resultCode === 200) this.$toast.success('添加成功')
       this.$store.dispatch('updateCart')
     },
-    async goToCart () {
+    async goToCart() {
       await addCart({
         goodsCount: 1,
         goodsId: this.detailData.goodsId
@@ -100,7 +100,7 @@ export default {
     }
   },
   computed: {
-    count () {
+    count() {
       return this.$store.state.cartCount
     }
   }
@@ -108,7 +108,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../common/style/mixin";
+@import '../common/style/mixin';
 .product-detail {
   .detail-content {
     margin-top: 44px;
@@ -167,7 +167,7 @@ export default {
       ::v-deep .product-content {
         padding: 0 20px;
         img {
-          width: 100%!important;
+          width: 100% !important;
         }
       }
     }

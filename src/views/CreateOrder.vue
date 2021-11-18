@@ -3,11 +3,12 @@
     <s-header :name="'生成订单'" @callback="deleteLocal"></s-header>
     <div class="address-wrap">
       <div class="name" @click="goTo">
-        <span>{{address.userName}}</span>
-        <span>{{address.userPhone}}</span>
+        <span>{{ address.userName }}</span>
+        <span>{{ address.userPhone }}</span>
       </div>
       <div class="address">
-        {{ address.provinceName }} {{ address.cityName }} {{ address.regionName }} {{ address.detailAddress }}
+        {{ address.provinceName }} {{ address.cityName }}
+        {{ address.regionName }} {{ address.detailAddress }}
       </div>
       <i class="iconfont icon-arrow"></i>
     </div>
@@ -75,7 +76,7 @@ export default {
   components: {
     sHeader
   },
-  data () {
+  data() {
     return {
       cartList: [],
       address: {},
@@ -84,22 +85,26 @@ export default {
       cartItemIds: []
     }
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   methods: {
-    async init () {
+    async init() {
       this.$toast.loading({ message: '加载中...', forbidClick: true })
       const { addressId, cartItemIds } = this.$route.query
       // id 会本地存储，查询字符串 id 优先获取，若没有则获取本地存储的 ids
-      const _cartItemIds = cartItemIds ? JSON.parse(cartItemIds) : JSON.parse(getLocal('cartItemIds'))
+      const _cartItemIds = cartItemIds
+        ? JSON.parse(cartItemIds)
+        : JSON.parse(getLocal('cartItemIds'))
       console.log(_cartItemIds)
       setLocal('cartItemIds', JSON.stringify(_cartItemIds))
       const { data: list } = await getByCartItemIds({
         cartItemIds: _cartItemIds.join(',')
       })
       // addressId 存在的情况下，优先获取 addressId，否则获取默认地址接口
-      const { data: address } = addressId ? await getAddressDetail(addressId) : await getDefaultAddress()
+      const { data: address } = addressId
+        ? await getAddressDetail(addressId)
+        : await getDefaultAddress()
       if (!address) {
         this.$router.push({ path: 'address' })
         return
@@ -108,15 +113,15 @@ export default {
       this.address = address
       this.$toast.clear()
     },
-    goTo () {
+    goTo() {
       this.$router.push({
         path: `address?cartItemIds=${JSON.stringify(this.cartItemIds)}`
       })
     },
-    deleteLocal () {
+    deleteLocal() {
       setLocal('cartItemIds', '')
     },
-    async createOrder () {
+    async createOrder() {
       const params = {
         addressId: this.address.addressId,
         cartItemIds: this.cartList.map(item => item.cartItemId)
@@ -126,10 +131,10 @@ export default {
       this.orderNo = data
       this.showPay = true
     },
-    close () {
+    close() {
       this.$router.push({ path: 'order' })
     },
-    async payOrder (type) {
+    async payOrder(type) {
       this.$toast.loading('正在支付...')
       await payOrder({ orderNo: this.orderNo, payType: type })
       this.$router.push({ path: 'order' })

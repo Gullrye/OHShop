@@ -5,7 +5,12 @@
         <i class="iconfont icon-back" @click="goBack"></i>
         <div class="header-search">
           <i class="iconfont icon-search"></i>
-          <input type="text" class="search-title" v-model="keyword" @keyup.enter="getSearch" />
+          <input
+            type="text"
+            class="search-title"
+            v-model="keyword"
+            @keyup.enter="getSearch"
+          />
         </div>
         <span class="search-btn" @click="getSearch">搜索</span>
       </header>
@@ -49,7 +54,7 @@
 // import { getQueryString } from '@/common/js/utils'
 import { search } from '../service/good'
 export default {
-  data () {
+  data() {
     return {
       keyword: this.$route.query.keyword || '',
       searchBtn: false,
@@ -64,7 +69,7 @@ export default {
     }
   },
   methods: {
-    async init () {
+    async init() {
       const { categoryId } = this.$route.query
       if (!categoryId && !this.keyword) {
         this.$toast.fail('请输入关键词')
@@ -87,16 +92,16 @@ export default {
       this.loading = false
       if (this.page >= data.totalPage) this.finished = true
     },
-    goBack () {
+    goBack() {
       this.$router.go(-1)
     },
-    productDetail (item) {
+    productDetail(item) {
       this.$router.push({ path: `product/${item.goodsId}` })
     },
-    getSearch () {
+    getSearch() {
       this.onRefresh()
     },
-    onLoad () {
+    onLoad() {
       if (!this.refreshing && this.page < this.totalPage) {
         this.page = this.page + 1
       }
@@ -106,14 +111,14 @@ export default {
       }
       this.init()
     },
-    onRefresh () {
+    onRefresh() {
       this.refreshing = true
       this.finished = false
       this.loading = true
       this.page = 1
       this.onLoad()
     },
-    changeTab (name, title) {
+    changeTab(name) {
       this.orderBy = name
       this.onRefresh()
     }
@@ -122,7 +127,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../common/style/mixin";
+@import '../common/style/mixin';
 .product-list-content {
   position: fixed;
   left: 0;

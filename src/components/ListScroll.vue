@@ -1,5 +1,5 @@
 <template>
-  <div ref='wrapper' class="scroll-wrapper">
+  <div ref="wrapper" class="scroll-wrapper">
     <slot></slot>
   </div>
 </template>
@@ -57,7 +57,7 @@ export default {
     }
   },
   methods: {
-    initScroll () {
+    initScroll() {
       if (!this.$refs.wrapper) {
         return
       }
@@ -71,21 +71,21 @@ export default {
       if (this.listenScroll) {
         const self = this
         // on 是 betterscroll 上的方法，能够监听当前实例上的钩子函数 scroll
-        this.scroll.on('scroll', (position) => {
+        this.scroll.on('scroll', position => {
           self.$emit('scroll', position)
         })
       }
       if (this.pullup) {
         this.scroll.on('scrollEnd', () => {
           // 滚动到底部
-          if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+          if (this.scroll.y <= this.scroll.maxScrollY + 50) {
             // 派发滚动到底部的事件
             this.$emit('scrollToEnd')
           }
         })
       }
       if (this.pulldown) {
-        this.scroll.on('touchend', (pos) => {
+        this.scroll.on('touchend', pos => {
           // 下拉动作
           if (pos.y > 50) {
             // 下拉刷新
@@ -100,41 +100,41 @@ export default {
         })
       }
     },
-    disable () {
+    disable() {
       // 代理 better-scroll 的 disable 方法
       this.scroll && this.scroll.disable()
     },
-    enable () {
+    enable() {
       // 代理 better-scroll 的 enable 方法
       this.scroll && this.scroll.enable()
     },
-    refresh () {
+    refresh() {
       // 代理 better-scroll 的 refresh 方法
       this.scroll && this.scroll.refresh()
     },
-    scrollTo () {
+    scrollTo() {
       // 代理 better-scroll 的 scrollTo 方法
       this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
     },
-    scrollToElement () {
+    scrollToElement() {
       // 代理 better-scroll 的 scrollToElement 方法
       this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
     }
   },
   watch: {
-    data () {
+    data() {
       setTimeout(() => {
         this.refresh()
       }, this.refreshDelay)
     }
   },
-  mounted () {
+  mounted() {
     // 在 DOM 渲染完毕后初始化 better-scroll
     this.$nextTick(() => {
       this.initScroll()
     })
   },
-  updated () {
+  updated() {
     this.scroll.refresh()
   }
 }

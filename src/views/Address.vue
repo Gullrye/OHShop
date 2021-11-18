@@ -21,7 +21,7 @@ export default {
   components: {
     sHeader
   },
-  data () {
+  data() {
     return {
       // from：从购物车页面进入订单详情时，点击返回到达 /cart；从个人主页进入订单详情时，点击返回到达 /user
       from: this.$route.query.from ? `/${this.$route.query.from}` : '',
@@ -30,18 +30,18 @@ export default {
     }
   },
   methods: {
-    onAdd () {
+    onAdd() {
       this.$router.push({ path: 'address-edit?type=add' })
     },
-    onEdit (item, index) {
+    onEdit(item, index) {
       this.$router.push({ path: `address-edit?type=edit&addressId=${item.id}` })
     },
     // 切换选中的地址时触发。item: 地址对象，index: 索引
-    select (item, index) {
+    select(item, index) {
       this.$router.push({ path: `create-order?addressId=${item.id}` })
     }
   },
-  async mounted () {
+  async mounted() {
     const { data } = await getAddressList()
     this.list = data.map(item => {
       return {

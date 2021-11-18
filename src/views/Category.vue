@@ -60,7 +60,7 @@
 import { getCategory } from '../service/good'
 export default {
   name: 'Category',
-  data () {
+  data() {
     return {
       categoryData: [],
       active: 0
@@ -72,11 +72,11 @@ export default {
     // ListScroll
   },
   methods: {
-    goHome () {
+    goHome() {
       this.$router.push({ path: 'home' })
     },
     // 重构分类页面，处理 categories 接口数据
-    dealCategoryData (data) {
+    dealCategoryData(data) {
       const newData = []
       let n = 0
       data.forEach(i => {
@@ -117,11 +117,11 @@ export default {
     //   this.activeIndex = clickIndex
     //   this.$refs.categorySwipe.swipeTo(clickIndex)
     // },
-    selectProduct (it) {
+    selectProduct(it) {
       this.$router.push({ path: `product-list?categoryId=${it.categoryId}` })
     }
   },
-  async mounted () {
+  async mounted() {
     const { data } = await getCategory()
     this.categoryData = this.dealCategoryData(data)
   }
@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../common/style/mixin";
+@import '../common/style/mixin';
 .category {
   .category-header {
     position: fixed;

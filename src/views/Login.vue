@@ -37,7 +37,7 @@
             :type="2"
           ></Verify>
         </div>
-        <div style="margin: 16px;">
+        <div style="margin: 16px">
           <div class="link-register" @click="toggle('register')">立即注册</div>
           <van-button
             round
@@ -70,16 +70,16 @@
         <div class="verify">
           <Verify
             ref="loginVerifyRef"
+            @success="success"
             @error="error"
             :showButton="false"
-            @success="success"
             :width="'100%'"
             :height="'40px'"
             :fontSize="'16px'"
             :type="2"
           ></Verify>
         </div>
-        <div style="margin: 16px;">
+        <div style="margin: 16px">
           <div class="link-login" @click="toggle('login')">已有登录账号</div>
           <van-button
             round
@@ -103,7 +103,7 @@ import Verify from 'vue2-verify'
 
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       username: '',
       password: '',
@@ -119,25 +119,25 @@ export default {
   },
   methods: {
     // Verify 组件验证成功的回调
-    success (obj) {
+    success(obj) {
       this.verify = true
       // 回调之后，刷新验证码
       obj.refresh()
     },
-    error (obj) {
+    error(obj) {
       this.verify = false
       // 回调之后，刷新验证码
       obj.refresh()
     },
     // 执行验证码
-    dealTriVer () {
+    dealTriVer() {
       this.$refs.loginVerifyRef.$refs.instance.checkCode()
     },
-    toggle (v) {
+    toggle(v) {
       this.verify = false
       this.type = v
     },
-    async onSubmit (values) {
+    async onSubmit(values) {
       this.dealTriVer()
       if (!this.verify) {
         this.$toast.fail('验证码未填或填写错误!')

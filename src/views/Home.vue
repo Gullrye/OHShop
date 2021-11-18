@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="home-header" :class="{'active': headerScroll}">
+    <div class="home-header" :class="{ active: headerScroll }">
       <router-link to="/category">
         <i class="iconfont icon-caidan"></i>
       </router-link>
@@ -28,7 +28,12 @@
     <div class="good">
       <div class="good-header">新品上线</div>
       <div class="good-box">
-        <div class="good-item" v-for="item in newGoodses" :key="item.goodsId" @click="goToDetail(item)">
+        <div
+          class="good-item"
+          v-for="item in newGoodses"
+          :key="item.goodsId"
+          @click="goToDetail(item)"
+        >
           <img :src="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
@@ -40,8 +45,13 @@
     <div class="good">
       <div class="good-header">热门商品</div>
       <div class="good-box">
-        <div class="good-item" v-for="item in hots" :key="item.goodsId" @click="goToDetail(item)">
-          <img :src='getRealImg(item.goodsCoverImg)' />
+        <div
+          class="good-item"
+          v-for="item in hots"
+          :key="item.goodsId"
+          @click="goToDetail(item)"
+        >
+          <img :src="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">￥ {{ item.sellingPrice }}</div>
@@ -52,7 +62,12 @@
     <div class="good">
       <div class="good-header">最新推荐</div>
       <div class="good-box">
-        <div class="good-item" v-for="item in recommends" :key="item.goodsId" @click="goToDetail(item)">
+        <div
+          class="good-item"
+          v-for="item in recommends"
+          :key="item.goodsId"
+          @click="goToDetail(item)"
+        >
           <img :src="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
@@ -70,7 +85,7 @@ import { getHome } from '../service/home'
 import { getLocal } from '../common/js/utils'
 export default {
   name: 'Home',
-  data () {
+  data() {
     return {
       isLogin: false,
       swiperList: [],
@@ -135,13 +150,14 @@ export default {
   components: {
     Swiper
   },
-  async mounted () {
+  async mounted() {
     const token = getLocal('token')
     if (token) {
       this.isLogin = true
     }
     window.addEventListener('scroll', this.pageScroll)
-    this.$toast.loading({ // 展示加载提示
+    this.$toast.loading({
+      // 展示加载提示
       message: '加载中...',
       forbidClick: true // 禁用背景点击
     })
@@ -153,11 +169,14 @@ export default {
     this.$toast.clear()
   },
   methods: {
-    pageScroll () {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
-      scrollTop > 130 ? this.headerScroll = true : this.headerScroll = false
+    pageScroll() {
+      const scrollTop =
+        window.scrollY ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop
+      scrollTop > 130 ? (this.headerScroll = true) : (this.headerScroll = false)
     },
-    goToDetail (item) {
+    goToDetail(item) {
       this.$router.push({ path: `product/${item.goodsId}` })
     }
   }
@@ -165,7 +184,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../common/style/mixin";
+@import '../common/style/mixin';
 
 .home-header {
   position: absolute;
@@ -190,7 +209,7 @@ export default {
     position: fixed;
     border-bottom: 0;
     background-color: @primary;
-    animation: slideDown .3s ease-in-out;
+    animation: slideDown 0.3s ease-in-out;
     @keyframes slideDown {
       0% {
         height: 0;
@@ -207,7 +226,7 @@ export default {
     }
     .header-search {
       border: 0;
-      background-color: hsla(0,0%,100%,.7);
+      background-color: hsla(0, 0%, 100%, 0.7);
     }
   }
   .header-search {

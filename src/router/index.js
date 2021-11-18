@@ -24,7 +24,8 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/About.vue'),
     meta: {
       index: 2 // 添加 meta 属性，约定 2 为第二级
     }
@@ -32,7 +33,8 @@ const routes = [
   {
     path: '/category',
     name: 'category',
-    component: () => import(/* webpackChunkName: "category" */ '../views/Category.vue'),
+    component: () =>
+      import(/* webpackChunkName: "category" */ '../views/Category.vue'),
     meta: {
       index: 1
     }
@@ -56,7 +58,8 @@ const routes = [
   {
     path: '/detail',
     name: 'detail',
-    component: () => import(/* webpackChunkName: "detail" */ '../views/Detail.vue'),
+    component: () =>
+      import(/* webpackChunkName: "detail" */ '../views/Detail.vue'),
     meta: {
       index: 2
     }
@@ -64,7 +67,8 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+    component: () =>
+      import(/* webpackChunkName: "login" */ '../views/Login.vue'),
     meta: {
       index: 2
     }
@@ -75,7 +79,8 @@ const routes = [
     meta: {
       index: 2
     },
-    component: () => import(/* webpackChunkName: "product-list" */ '../views/ProductList.vue')
+    component: () =>
+      import(/* webpackChunkName: "product-list" */ '../views/ProductList.vue')
   },
   {
     path: '/product/:id',
@@ -83,7 +88,8 @@ const routes = [
     meta: {
       index: 3
     },
-    component: () => import(/* webpackChunkName: "product" */ '../views/ProductDetail.vue')
+    component: () =>
+      import(/* webpackChunkName: "product" */ '../views/ProductDetail.vue')
   },
   {
     path: '/create-order',
@@ -91,7 +97,8 @@ const routes = [
     meta: {
       index: 2
     },
-    component: () => import(/* webpackChunkName: "create-order" */ '../views/CreateOrder.vue')
+    component: () =>
+      import(/* webpackChunkName: "create-order" */ '../views/CreateOrder.vue')
   },
   {
     path: '/address',
@@ -99,7 +106,8 @@ const routes = [
     meta: {
       index: 2
     },
-    component: () => import(/* webpackChunkName: "address" */ '../views/Address.vue')
+    component: () =>
+      import(/* webpackChunkName: "address" */ '../views/Address.vue')
   },
   {
     path: '/address-edit',
@@ -107,7 +115,8 @@ const routes = [
     meta: {
       index: 2
     },
-    component: () => import(/* webpackChunkName: "address-edit" */ '../views/AddressEdit.vue')
+    component: () =>
+      import(/* webpackChunkName: "address-edit" */ '../views/AddressEdit.vue')
   },
   {
     path: '/order',
@@ -115,7 +124,8 @@ const routes = [
     meta: {
       index: 2
     },
-    component: () => import(/* webpackChunkName: "order" */ '../views/Order.vue')
+    component: () =>
+      import(/* webpackChunkName: "order" */ '../views/Order.vue')
   },
   {
     path: '/order-detail',
@@ -123,7 +133,8 @@ const routes = [
     meta: {
       index: 3
     },
-    component: () => import(/* webpackChunkName: "order-detail" */ '../views/OrderDetail.vue')
+    component: () =>
+      import(/* webpackChunkName: "order-detail" */ '../views/OrderDetail.vue')
   },
   {
     path: '/setting',
@@ -131,7 +142,8 @@ const routes = [
     meta: {
       index: 2
     },
-    component: () => import(/* webpackChunkName: "setting" */ '../views/Setting.vue')
+    component: () =>
+      import(/* webpackChunkName: "setting" */ '../views/Setting.vue')
   }
 ]
 

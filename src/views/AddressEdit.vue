@@ -26,7 +26,7 @@ import {
   getAddressDetail
 } from '../service/address'
 export default {
-  data () {
+  data() {
     return {
       areaList,
       searchResult: [],
@@ -39,7 +39,7 @@ export default {
     sHeader
   },
   methods: {
-    async onSave (content) {
+    async onSave(content) {
       const params = {
         userName: content.name,
         userPhone: content.tel,
@@ -52,13 +52,13 @@ export default {
       if (this.type === 'edit') {
         params.addressId = this.addressId
       }
-      await this.type === 'add' ? addAddress(params) : editAddress(params)
+      ;(await this.type) === 'add' ? addAddress(params) : editAddress(params)
       this.$toast('保存成功')
       setTimeout(() => {
         this.$router.push({ path: 'address' })
       }, 1000)
     },
-    async onDelete () {
+    async onDelete() {
       await deleteAddress(this.addressId)
       this.$toast('删除成功')
       setTimeout(() => {
@@ -66,7 +66,7 @@ export default {
       }, 1000)
     }
   },
-  async mounted () {
+  async mounted() {
     // console.log(areaList)
     const { addressId, type } = this.$route.query
     this.addressId = addressId
@@ -81,17 +81,18 @@ export default {
         // xx 区
         if (text === addressDetail.regionName) {
           // 区对应的多个省份
-          const provinceIndex = province.findIndex(
-            item => {
-              return item[0].substr(0, 2) === id.substr(0, 2)
-            }
-          )
+          const provinceIndex = province.findIndex(item => {
+            return item[0].substr(0, 2) === id.substr(0, 2)
+          })
           // 区对应的多个市
           const cityItem = Object.entries(this.areaList.city_list).filter(
             item => item[0].substr(0, 4) === id.substr(0, 4)
           )[0]
           // 对比找到的省份和接口返回的省份是否相等，因为有些区可能重名
-          if (province[provinceIndex][1] === addressDetail.provinceName && cityItem[1] === addressDetail.cityName) {
+          if (
+            province[provinceIndex][1] === addressDetail.provinceName &&
+            cityItem[1] === addressDetail.cityName
+          ) {
             _areaCode = id
           }
         }

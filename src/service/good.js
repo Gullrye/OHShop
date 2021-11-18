@@ -1,11 +1,11 @@
 import axios from '../utils/axios'
 
-export function getCategory () {
+export function getCategory() {
   return axios.get('/categories')
 }
-export function search (params) {
+export function search(params) {
   return axios.get('/search', { params })
 }
-export function getDetail (id) {
+export function getDetail(id) {
   return axios.get(`/goods/detail/${id}`)
 }

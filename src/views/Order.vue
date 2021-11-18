@@ -50,7 +50,7 @@
 import sHeader from '@/components/SimpleHeader'
 import { getOrderList } from '../service/order'
 export default {
-  data () {
+  data() {
     return {
       // from：从购物车页面进入订单详情时，点击返回到达 /cart；从个人主页进入订单详情时，点击返回到达 /user
       from: this.$route.query.from ? `/${this.$route.query.from}` : '/cart',
@@ -65,11 +65,11 @@ export default {
   components: {
     sHeader
   },
-  async mounted () {
+  async mounted() {
     // this.loadData()
   },
   methods: {
-    async loadData () {
+    async loadData() {
       const {
         data,
         data: { list }
@@ -79,17 +79,17 @@ export default {
       this.loading = false
       if (this.page >= data.totalPage) this.finished = true
     },
-    onChangeTab (name, title) {
+    onChangeTab(name) {
       this.status = name
       this.onRefresh()
     },
-    goTo (id) {
+    goTo(id) {
       this.$router.push({ path: `order-detail?id=${id}` })
     },
-    goBack () {
+    goBack() {
       this.$router.go(-1)
     },
-    onLoad () {
+    onLoad() {
       if (!this.refreshing && this.page < this.totalPage) {
         this.page = this.page + 1
       }
@@ -99,7 +99,7 @@ export default {
       }
       this.loadData()
     },
-    onRefresh () {
+    onRefresh() {
       this.refreshing = true
       this.finished = false
       this.loading = true

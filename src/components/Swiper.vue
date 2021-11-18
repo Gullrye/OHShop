@@ -1,7 +1,7 @@
 <template>
   <van-swipe :autoplay="3000" class="my-swipe" indicator-color="#1baeae">
     <van-swipe-item v-for="(item, index) in list" :key="index">
-      <img :src="item.carouselUrl"/>
+      <img :src="item.carouselUrl" />
     </van-swipe-item>
   </van-swipe>
 </template>
@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 .my-swipe .van-swipe-item {
   img {
     width: 100%;

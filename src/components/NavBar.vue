@@ -26,18 +26,20 @@
 <script>
 export default {
   computed: {
-    count () {
-      return this.$store.state.cartCount === 0 ? '' : this.$store.state.cartCount
+    count() {
+      return this.$store.state.cartCount === 0
+        ? ''
+        : this.$store.state.cartCount
     }
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('updateCart')
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import "../common/style/mixin";
+@import '../common/style/mixin';
 .nav-bar {
   position: fixed;
   left: 0;

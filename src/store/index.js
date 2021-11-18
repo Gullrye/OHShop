@@ -9,18 +9,17 @@ export default new Vuex.Store({
     cartCount: 0
   },
   mutations: {
-    addCart (state, payload) {
+    addCart(state, payload) {
       state.cartCount = payload.count
     }
   },
   actions: {
-    async updateCart (ctx) {
+    async updateCart(ctx) {
       const { data } = await getCart()
       ctx.commit('addCart', {
         count: data.length || 0
       })
     }
   },
-  modules: {
-  }
+  modules: {}
 })

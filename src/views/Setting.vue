@@ -33,20 +33,20 @@ export default {
   components: {
     sHeader
   },
-  data () {
+  data() {
     return {
       nickName: '',
       introduceSign: '',
       password: ''
     }
   },
-  async mounted () {
+  async mounted() {
     const { data } = await getUserInfo()
     this.nickName = data.nickName
     this.introduceSign = data.introduceSign
   },
   methods: {
-    async save () {
+    async save() {
       const params = {
         introduceSign: this.introduceSign,
         nickName: this.nickName,
@@ -55,7 +55,7 @@ export default {
       await editUserInfo(params)
       this.$toast('保存成功')
     },
-    async logout () {
+    async logout() {
       const { resultCode } = await logout()
       if (resultCode === 200) {
         setLocal('token', '')
