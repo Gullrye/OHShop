@@ -33,11 +33,11 @@ export default {
     onAdd() {
       this.$router.push({ path: 'address-edit?type=add' })
     },
-    onEdit(item, index) {
+    onEdit(item) {
       this.$router.push({ path: `address-edit?type=edit&addressId=${item.id}` })
     },
     // 切换选中的地址时触发。item: 地址对象，index: 索引
-    select(item, index) {
+    select(item) {
       this.$router.push({ path: `create-order?addressId=${item.id}` })
     }
   },

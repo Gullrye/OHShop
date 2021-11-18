@@ -96,7 +96,7 @@ export default {
       const _cartItemIds = cartItemIds
         ? JSON.parse(cartItemIds)
         : JSON.parse(getLocal('cartItemIds'))
-      console.log(_cartItemIds)
+      // console.log(_cartItemIds)
       setLocal('cartItemIds', JSON.stringify(_cartItemIds))
       const { data: list } = await getByCartItemIds({
         cartItemIds: _cartItemIds.join(',')
