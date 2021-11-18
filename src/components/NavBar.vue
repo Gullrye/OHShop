@@ -1,23 +1,51 @@
 <template>
   <div class="nav-bar">
     <ul class="nav-list">
-      <router-link tag="li" class="nav-list-item active" to="home">
-        <i class="iconfont icon-home"></i>
-        <span>首页</span>
+      <router-link
+        v-slot="{ isActive, navigate }"
+        custom
+        class="nav-list-item active"
+        to="home"
+      >
+        <li :class="isActive && 'router-link-active'" @click="navigate">
+          <i class="iconfont icon-home"></i>
+          <span>首页</span>
+        </li>
       </router-link>
-      <router-link tag="li" class="nav-list-item" to="category">
-        <i class="iconfont icon-fenlei"></i>
-        <span>分类</span>
+      <router-link
+        v-slot="{ isActive, navigate }"
+        custom
+        class="nav-list-item"
+        to="category"
+      >
+        <li :class="isActive && 'router-link-active'" @click="navigate">
+          <i class="iconfont icon-fenlei"></i>
+          <span>分类</span>
+        </li>
       </router-link>
-      <router-link tag="li" class="nav-list-item" to="cart">
-        <i class="iconfont icon-cart">
-          <van-badge :content="count"> </van-badge>
-        </i>
-        <span>购物车</span>
+      <router-link
+        v-slot="{ isActive, navigate }"
+        custom
+        class="nav-list-item"
+        to="cart"
+      >
+        <li :class="isActive && 'router-link-active'" @click="navigate">
+          <i class="iconfont icon-cart">
+            <van-badge :content="count"> </van-badge>
+          </i>
+          <span>购物车</span>
+        </li>
       </router-link>
-      <router-link tag="li" class="nav-list-item" to="user">
-        <i class="iconfont icon-usertie"></i>
-        <span>我的</span>
+      <router-link
+        v-slot="{ isActive, navigate }"
+        custom
+        class="nav-list-item"
+        to="user"
+      >
+        <li :class="isActive && 'router-link-active'" @click="navigate">
+          <i class="iconfont icon-usertie"></i>
+          <span>我的</span>
+        </li>
       </router-link>
     </ul>
   </div>
