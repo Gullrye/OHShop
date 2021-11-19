@@ -126,8 +126,6 @@ export default {
     this.categoryData = this.dealCategoryData(data)
   }
 }
-
-// 此页面实际上可以用 Vant 的 Tab 标签页进行制作
 </script>
 
 <style lang="less" scoped>

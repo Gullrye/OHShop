@@ -73,7 +73,6 @@ export default {
     if (this.$store.state.keyword) {
       this.keyword = this.$store.state.keyword
       this.getSearch()
-      this.$store.commit('changeKeyword', { keyword: '' })
     }
   },
   methods: {
@@ -100,6 +99,7 @@ export default {
       if (this.page >= data.totalPage) this.finished = true
     },
     goBack() {
+      this.$store.commit('changeKeyword', { keyword: '' })
       this.$router.go(-1)
     },
     productDetail(item) {
