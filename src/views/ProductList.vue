@@ -56,7 +56,7 @@ import { search } from '../service/good'
 export default {
   data() {
     return {
-      keyword: this.$route.query.keyword || '',
+      keyword: '',
       searchBtn: false,
       seclectActive: false,
       refreshing: false,
@@ -66,6 +66,14 @@ export default {
       totalPage: 0,
       page: 1,
       orderBy: ''
+    }
+  },
+  mounted() {
+    // 若 Vuex 中存在 keyword，则表示我们已经在搜索框中输入过了关键字。当我们从商品详情页返回时，可以回到之前输入过了关键字的商品展示列表的页面
+    if (this.$store.state.keyword) {
+      this.keyword = this.$store.state.keyword
+      this.getSearch()
+      this.$store.commit('changeKeyword', { keyword: '' })
     }
   },
   methods: {
@@ -100,6 +108,10 @@ export default {
     getSearch() {
       if (!this.keyword) {
         this.$toast.fail('请输入关键词')
+      } else {
+        // 将 keyword 存进 Vuex
+        let xx = this.keyword
+        this.$store.commit('changeKeyword', { keyword: xx })
       }
       this.onRefresh()
     },

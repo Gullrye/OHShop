@@ -23,8 +23,10 @@
     - 添加商品时购物袋图标摇晃
     - 能够直接点击「加入购物车」按钮来多次添加
   - 配置 Vant 的地址栏
+  - Vuex 中设置 keyword，实现从 ProductDetail.vue 跳转到 ProductList.vue 时，保留搜索框关键字状态
 
 - 问题
+
   - 解决报错：`NavigationDuplicated: Avoided redundant navigation to current location`
 
   ```js

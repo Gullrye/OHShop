@@ -6,11 +6,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cartCount: 0
+    cartCount: 0,
+    keyword: ''
   },
   mutations: {
     addCart(state, payload) {
       state.cartCount = payload.count
+    },
+    changeKeyword(state, payload) {
+      state.keyword = payload.keyword
     }
   },
   actions: {
