@@ -149,6 +149,7 @@ export default {
           passwordMd5: this.$md5(values.password)
         })
         setLocal('token', data)
+        // 设置 token 后刷新跳转
         window.location.href = '/'
       } else {
         await register({

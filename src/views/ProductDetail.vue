@@ -43,7 +43,7 @@
       />
       <van-goods-action-button
         type="warning"
-        @click="addCart"
+        @click="addToCart"
         text="加入购物袋"
       />
       <van-goods-action-button
@@ -57,15 +57,17 @@
 
 <script>
 import sHeader from '../components/SimpleHeader.vue'
-import { addCart } from '../service/cart'
+import { addCart, getCart, modifyCart } from '../service/cart'
 import { getDetail } from '../service/good'
+
 export default {
   name: 'ProductDetail',
   data() {
     return {
       detailData: {},
       detailSlideImgs: [],
-      isAddingCart: false
+      isAddingCart: false,
+      cartItemId: 0
     }
   },
   components: {
@@ -76,7 +78,6 @@ export default {
     const { data } = await getDetail(id)
     this.detailData = data
     this.detailSlideImgs = data.goodsCarouselList
-    // console.log(data)
   },
   methods: {
     goBack() {
@@ -85,25 +86,38 @@ export default {
     goTo() {
       this.$router.push({ path: '/cart' })
     },
-    async addCart() {
-      const { resultCode } = await addCart({
-        goodsCount: 1,
-        goodsId: this.detailData.goodsId
-      })
-      if (resultCode === 200) this.$toast.success('添加成功')
-      this.$store.dispatch('updateCart')
+    async addToCart() {
       this.isAddingCart = true
+      const goodsId = this.detailData.goodsId
+      // 购物车数据
+      const { data: cartList } = await getCart({ pageNumber: 1 })
+      // console.log(cartList)
+      // 获取当前详情页的商品，看是否在购物车内
+      const nowGoodObj = cartList.filter(item => item.goodsId === goodsId)[0]
+      // 若购物车无此商品，请求 addCart 这个只能添加同一个商品一次的接口
+      if (!nowGoodObj) {
+        const { resultCode } = await addCart({
+          goodsCount: 1,
+          goodsId: this.detailData.goodsId
+        })
+        if (resultCode === 200) this.$toast.success('添加成功')
+      } else {
+        // 购物车已经有此商品时，商品数量 + 1
+        const params = {
+          cartItemId: nowGoodObj.cartItemId,
+          goodsCount: ++nowGoodObj.goodsCount
+        }
+        await modifyCart(params)
+      }
+      this.$store.dispatch('updateCart')
+      setTimeout(() => {
+        this.isAddingCart = false
+      }, 800)
     },
     async goToCart() {
-      await addCart({
-        goodsCount: 1,
-        goodsId: this.detailData.goodsId
-      })
-      // this.$store.dispatch('updateCart')
-      // this.$router.push({ path: '/cart' })
-      const goodsId = JSON.stringify([this.detailData.goodsId])
-      console.log(goodsId)
-      this.$router.push({ path: `/create-order?cartItemIds=${goodsId}` })
+      await this.addToCart()
+      this.$store.dispatch('updateCart')
+      this.$router.push({ path: '/cart' })
     }
   },
   computed: {
@@ -186,21 +200,21 @@ export default {
     background: linear-gradient(to right, #0dc3c3, #098888);
   }
   ::v-deep .shake-icon {
-    transition: all 0.3s;
-    animation: shake 0.3s ease-in-out 1;
+    transition: all 0.4s;
+    animation: shake 0.4s ease-in-out 1;
   }
   @keyframes shake {
     0% {
       transform: rotate(0deg);
     }
     25% {
-      transform: rotate(7deg);
+      transform: rotate(-15deg);
     }
     50% {
       transform: rotate(0deg);
     }
     75% {
-      transform: rotate(-7deg);
+      transform: rotate(10deg);
     }
     100% {
       transform: rotate(0deg);

@@ -19,7 +19,23 @@
   - 分类页重写
   - 订单页和地址页返回跳转修改
   - 未登录跳转修改
-  - ...
+  - 购物车逻辑重写
+    - 添加商品时购物袋图标摇晃
+    - 能够直接点击「加入购物车」按钮来多次添加
+  - 配置 Vant 的地址栏
+
+- 问题
+  - 解决报错：NavigationDuplicated: Avoided redundant navigation to current location
+
+  ```js
+  // src/router/index.js 文件中
+  //获取原型对象上的push函数
+  const originalPush = VueRouter.prototype.push
+  //修改原型对象中的push方法
+  VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+  }
+  ```
 
 - 已注册账号
 
