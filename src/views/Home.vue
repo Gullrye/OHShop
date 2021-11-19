@@ -15,7 +15,7 @@
         <span>登录</span>
       </router-link>
       <router-link to="/user" class="login" v-else>
-        <i class="iconfont icon-usertie"></i>
+        <i class="iconfont icon-wo"></i>
       </router-link>
     </div>
     <swiper :list="swiperList"></swiper>
@@ -312,20 +312,21 @@ export default {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    background: #fff;
     .good-item {
       box-sizing: border-box;
       width: 50%;
-      border-bottom: 1px solid #e9e9e9;
       padding: 10px 10px;
+      border-bottom: 1px solid #e9e9e9;
       img {
         display: block;
         width: 120px;
         margin: 0 auto;
       }
       .good-desc {
+        padding: 10px 0;
         text-align: center;
         font-size: 14px;
-        padding: 10px 0;
         .title {
           color: #222333;
         }

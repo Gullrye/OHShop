@@ -43,7 +43,7 @@
         to="user"
       >
         <li :class="isActive && 'router-link-active'" @click="navigate">
-          <i class="iconfont icon-usertie"></i>
+          <i class="iconfont icon-wo"></i>
           <span>我的</span>
         </li>
       </router-link>
@@ -69,6 +69,8 @@ export default {
 <style lang="less" scoped>
 @import '../common/style/mixin';
 .nav-bar {
+  display: flex;
+  align-items: center;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -76,9 +78,8 @@ export default {
   height: 50px;
   padding: 5px 0;
   z-index: 1000;
+  border-top: 1px solid rgba(226, 226, 226, 0.2);
   background-color: #fff;
-  display: flex;
-  align-items: center;
   .boxSizing();
   .nav-list {
     width: 100%;

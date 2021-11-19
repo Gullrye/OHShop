@@ -32,6 +32,7 @@
       </div>
     </div>
     <van-goods-action>
+      <van-goods-action-icon icon="shop-o" text="店铺" />
       <van-goods-action-icon icon="chat-o" text="客服" />
       <van-goods-action-icon
         icon="bag-o"
