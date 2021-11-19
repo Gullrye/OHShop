@@ -105,8 +105,8 @@ export default {
   name: 'Login',
   data() {
     return {
-      username: '',
-      password: '',
+      username: '13600000009',
+      password: '111111',
       username1: '',
       password1: '',
       type: 'login',

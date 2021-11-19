@@ -25,7 +25,7 @@
   - 配置 Vant 的地址栏
 
 - 问题
-  - 解决报错：NavigationDuplicated: Avoided redundant navigation to current location
+  - 解决报错：`NavigationDuplicated: Avoided redundant navigation to current location`
 
   ```js
   // src/router/index.js 文件中
