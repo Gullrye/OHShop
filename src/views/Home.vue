@@ -164,6 +164,17 @@ export default {
     const { data } = await getHome()
     this.swiperList = data.carousels
     this.newGoodses = data.newGoodses
+    // 0 号已下架，此处修改下该商品
+    this.newGoodses[0] = {
+      goodsCoverImg:
+        'http://backend-api-01.newbee.ltd/goods-img/dda1d575-cdac-4eb4-a118-3834490166f7.jpg',
+      goodsId: 10742,
+      goodsIntro: '华为 HUAWEI P30 Pro',
+      goodsName: '华为 HUAWEI P30 Pro 全网通手机...',
+      sellingPrice: 5488,
+      tag: '自我再飞跃'
+    }
+
     this.hots = data.hotGoodses
     this.recommends = data.recommendGoodses
     this.$toast.clear()

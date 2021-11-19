@@ -34,15 +34,15 @@
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" />
       <van-goods-action-icon
-        icon="cart-o"
+        icon="bag-o"
         :badge="!count ? '' : count"
         @click="goTo()"
-        text="购物车"
+        text="购物袋"
       />
       <van-goods-action-button
         type="warning"
         @click="addCart"
-        text="加入购物车"
+        text="加入购物袋"
       />
       <van-goods-action-button
         type="danger"

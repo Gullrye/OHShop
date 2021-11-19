@@ -72,7 +72,6 @@ export default {
     async init() {
       const { categoryId } = this.$route.query
       if (!categoryId && !this.keyword) {
-        this.$toast.fail('请输入关键词')
         this.finished = true
         this.loading = false
         return
@@ -99,6 +98,9 @@ export default {
       this.$router.push({ path: `product/${item.goodsId}` })
     },
     getSearch() {
+      if (!this.keyword) {
+        this.$toast.fail('请输入关键词')
+      }
       this.onRefresh()
     },
     onLoad() {

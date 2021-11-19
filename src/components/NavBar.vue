@@ -30,10 +30,10 @@
         to="cart"
       >
         <li :class="isActive && 'router-link-active'" @click="navigate">
-          <i class="iconfont icon-cart">
+          <i class="iconfont icon-cart-bag">
             <van-badge :content="count"> </van-badge>
           </i>
-          <span>购物车</span>
+          <span>购物袋</span>
         </li>
       </router-link>
       <router-link
@@ -101,7 +101,7 @@ export default {
       span {
         font-size: 12px;
       }
-      .icon-cart {
+      .icon-cart-bag {
         position: relative;
         margin: 0 auto;
         .van-badge {

@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      // from：从购物车页面进入订单详情时，点击返回到达 /cart；从个人主页进入订单详情时，点击返回到达 /user
+      // from：从购物袋页面进入订单详情时，点击返回到达 /cart；从个人主页进入订单详情时，点击返回到达 /user
       from: this.$route.query.from ? `/${this.$route.query.from}` : '',
       chosenAddressId: '1',
       list: []

@@ -1,6 +1,6 @@
 <template>
   <div class="cart-box">
-    <s-header :name="'购物车'"></s-header>
+    <s-header :name="'购物袋'"></s-header>
     <div class="cart-body">
       <van-checkbox-group
         v-model="result"
@@ -54,7 +54,7 @@
     </van-submit-bar>
     <div class="empty" v-if="!list.length">
       <i class="iconfont icon-smile"></i>
-      <div class="title">购物车空空空如也</div>
+      <div class="title">购物袋空空空如也</div>
       <van-button color="#1baeae" type="primary" @click="goTo" block
         >前往首页</van-button
       >
@@ -69,8 +69,8 @@ export default {
   name: 'Cart',
   data() {
     return {
-      list: [], // 购物车商品列表
-      result: [], // 选择的购物车商品 id 数组
+      list: [], // 购物袋商品列表
+      result: [], // 选择的购物袋商品 id 数组
       checkAll: true
     }
   },
