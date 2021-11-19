@@ -35,6 +35,7 @@
       <van-goods-action-icon icon="shop-o" text="店铺" />
       <van-goods-action-icon icon="chat-o" text="客服" />
       <van-goods-action-icon
+        :icon-class="isAddingCart ? 'shake-icon' : ''"
         icon="bag-o"
         :badge="!count ? '' : count"
         @click="goTo()"
@@ -63,7 +64,8 @@ export default {
   data() {
     return {
       detailData: {},
-      detailSlideImgs: []
+      detailSlideImgs: [],
+      isAddingCart: false
     }
   },
   components: {
@@ -90,14 +92,18 @@ export default {
       })
       if (resultCode === 200) this.$toast.success('添加成功')
       this.$store.dispatch('updateCart')
+      this.isAddingCart = true
     },
     async goToCart() {
       await addCart({
         goodsCount: 1,
         goodsId: this.detailData.goodsId
       })
-      this.$store.dispatch('updateCart')
-      this.$router.push({ path: '/cart' })
+      // this.$store.dispatch('updateCart')
+      // this.$router.push({ path: '/cart' })
+      const goodsId = JSON.stringify([this.detailData.goodsId])
+      console.log(goodsId)
+      this.$router.push({ path: `/create-order?cartItemIds=${goodsId}` })
     }
   },
   computed: {
@@ -178,6 +184,27 @@ export default {
   }
   .van-goods-action-button--danger {
     background: linear-gradient(to right, #0dc3c3, #098888);
+  }
+  ::v-deep .shake-icon {
+    transition: all 0.3s;
+    animation: shake 0.3s ease-in-out 1;
+  }
+  @keyframes shake {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(7deg);
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    75% {
+      transform: rotate(-7deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
 }
 </style>
