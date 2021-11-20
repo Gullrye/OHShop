@@ -112,7 +112,7 @@ export default {
       this.$store.dispatch('updateCart')
       setTimeout(() => {
         this.isAddingCart = false
-      }, 800)
+      }, 400)
     },
     async goToCart() {
       await this.addToCart()
