@@ -1,8 +1,8 @@
 <template>
   <div class="create-order">
     <s-header :name="'生成订单'" @callback="deleteLocal"></s-header>
-    <div class="address-wrap">
-      <div class="name" @click="goTo">
+    <div class="address-wrap" @click="goTo">
+      <div class="name">
         <span>{{ address.userName }}</span>
         <span>{{ address.userPhone }}</span>
       </div>
@@ -96,7 +96,8 @@ export default {
       const _cartItemIds = cartItemIds
         ? JSON.parse(cartItemIds)
         : JSON.parse(getLocal('cartItemIds'))
-      // console.log(_cartItemIds)
+      // 记得赋值
+      this.cartItemIds = _cartItemIds
       setLocal('cartItemIds', JSON.stringify(_cartItemIds))
       const { data: list } = await getByCartItemIds({
         cartItemIds: _cartItemIds.join(',')
@@ -114,6 +115,7 @@ export default {
       this.$toast.clear()
     },
     goTo() {
+      console.log(this.cartItemIds)
       this.$router.push({
         path: `address?cartItemIds=${JSON.stringify(this.cartItemIds)}`
       })
@@ -130,6 +132,7 @@ export default {
       setLocal('cartItemIds', '')
       this.orderNo = data
       this.showPay = true
+      console.log(data)
     },
     close() {
       this.$router.push({ path: 'order' })

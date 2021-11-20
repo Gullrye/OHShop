@@ -24,6 +24,7 @@
     - 能够直接点击「加入购物车」按钮来多次添加
   - 配置 Vant 的地址栏
   - Vuex 中设置 keyword，实现从 ProductDetail.vue 跳转到 ProductList.vue 时，保留搜索框关键字状态
+  - 地址管理链接 bug(this.cartItemIds 未赋值) 处理
 
 - 问题
 
@@ -46,6 +47,6 @@
   - 13606865391 111111
   - 13612345608 13612345678
 
-- show
+- 旧展示图
 
 ![show](./img/GIF%202021-10-10%200-19-41.gif)

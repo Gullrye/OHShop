@@ -3,21 +3,17 @@
     <s-header :name="'购物袋'"></s-header>
     <div class="cart-body">
       <van-checkbox-group
-        v-model="result"
+        v-model="checkedGoodsIdArr"
         ref="checkboxGroup"
         @change="groupChange"
       >
-        <div class="good-item" v-for="(item, index) in list" :key="index">
+        <div
+          class="good-item"
+          v-for="(item, index) in cartGoodsList"
+          :key="index"
+        >
+          <!-- 滑动单元格 -->
           <van-swipe-cell>
-            <template #right>
-              <van-button
-                square
-                text="删除"
-                type="danger"
-                class="delete-button"
-                @click="deleteGood(item.cartItemId)"
-              />
-            </template>
             <van-checkbox :name="item.cartItemId"></van-checkbox>
             <div class="good-img">
               <img :src="getRealImg(item.goodsCoverImg)" alt="" />
@@ -29,6 +25,7 @@
               </div>
               <div class="good-btn">
                 <div class="price">¥{{ item.sellingPrice }}</div>
+                <!-- 步进器 -->
                 <van-stepper
                   integer
                   :min="1"
@@ -39,6 +36,16 @@
                 />
               </div>
             </div>
+            <!-- 商品删除按钮 -->
+            <template #right>
+              <van-button
+                square
+                text="删除"
+                type="danger"
+                class="delete-button"
+                @click="deleteGood(item.cartItemId)"
+              />
+            </template>
           </van-swipe-cell>
         </div>
       </van-checkbox-group>
@@ -48,11 +55,11 @@
       :price="totalPrice"
       button-text="提交订单"
       @submit="onSubmit"
-      v-if="list.length"
+      v-if="cartGoodsList.length"
     >
       <van-checkbox v-model="checkAll" @click="allCheck">全选</van-checkbox>
     </van-submit-bar>
-    <div class="empty" v-if="!list.length">
+    <div class="empty" v-if="!cartGoodsList.length">
       <i class="iconfont icon-smile"></i>
       <div class="title">购物袋空空空如也</div>
       <van-button color="#1baeae" type="primary" @click="goTo" block
@@ -69,18 +76,18 @@ export default {
   name: 'Cart',
   data() {
     return {
-      list: [], // 购物袋商品列表
-      result: [], // 选择的购物袋商品 id 数组
+      cartGoodsList: [], // 购物袋商品列表
+      checkedGoodsIdArr: [], // 选择的购物袋商品 id 数组
       checkAll: true
     }
   },
   computed: {
     totalPrice() {
       let totalPrice = 0
-      const _list = this.list.filter(item =>
-        this.result.includes(item.cartItemId)
+      const _cartGoodsList = this.cartGoodsList.filter(item =>
+        this.checkedGoodsIdArr.includes(item.cartItemId)
       )
-      _list.forEach(item => {
+      _cartGoodsList.forEach(item => {
         totalPrice += item.goodsCount * item.sellingPrice
       })
       return totalPrice * 100
@@ -94,14 +101,14 @@ export default {
       // 加载中禁止点击
       this.$toast.loading({ message: '加载中...', forbidClick: true })
       const { data } = await getCart({ pageNumber: 1 })
-      this.list = data
-      this.result = data.map(item => item.cartItemId)
+      this.cartGoodsList = data
+      this.checkedGoodsIdArr = data.map(item => item.cartItemId)
       this.$toast.clear()
     },
     // 单项购买数量变化回调，value, detail 为 vant Stepper 组件 change 事件的回调参数
     async onChange(value, detail) {
       if (
-        this.list.filter(item => item.cartItemId === detail.name)[0]
+        this.cartGoodsList.filter(item => item.cartItemId === detail.name)[0]
           .goodsCount === value
       ) {
         return
@@ -112,7 +119,7 @@ export default {
         goodsCount: value
       }
       await modifyCart(params)
-      this.list.forEach(item => {
+      this.cartGoodsList.forEach(item => {
         if (item.cartItemId === detail.name) {
           item.goodsCount = value
         }
@@ -120,21 +127,21 @@ export default {
       this.$toast.clear()
     },
     // 多选变化，是整组的回调
-    groupChange(result) {
-      if (result.length === this.list.length) {
+    groupChange(checkedGoodsIdArr) {
+      if (checkedGoodsIdArr.length === this.cartGoodsList.length) {
         this.checkAll = true
       } else {
         this.checkAll = false
       }
-      this.result = result
+      this.checkedGoodsIdArr = checkedGoodsIdArr
     },
-    // 判断 checkAll，如果已是全选状态，checkAll 将变为 false，所以清空 result 内的变量，价格变为 0
-    // 如果是非全选状态checkAll 将变为 true，直接将 list 下的 id 塞进 result 变量里，total 会自动变为相应的价格
+    // 判断 checkAll，如果已是全选状态，checkAll 将变为 false，所以清空 checkedGoodsIdArr 内的变量，价格变为 0
+    // 如果是非全选状态checkAll 将变为 true，直接将 cartGoodsList 下的 id 塞进 checkedGoodsIdArr 变量里，total 会自动变为相应的价格
     allCheck() {
       if (!this.checkAll) {
-        this.result = this.list.map(item => item.cartItemId)
+        this.checkedGoodsIdArr = this.cartGoodsList.map(item => item.cartItemId)
       } else {
-        this.result = []
+        this.checkedGoodsIdArr = []
       }
       this.$refs.checkboxGroup.toggleAll()
     },
@@ -147,11 +154,11 @@ export default {
       this.$router.push({ path: 'home' })
     },
     onSubmit() {
-      if (!this.result.length === 0) {
+      if (!this.checkedGoodsIdArr.length === 0) {
         this.$toast.fail('请选择商品进行结算')
         return
       }
-      const params = JSON.stringify(this.result)
+      const params = JSON.stringify(this.checkedGoodsIdArr)
       this.$router.push({ path: `create-order?cartItemIds=${params}` })
     }
   },
@@ -205,7 +212,7 @@ export default {
       }
     }
     .delete-button {
-      width: 50px;
+      width: 60px;
       white-space: nowrap;
       height: 100%;
     }

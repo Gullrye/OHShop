@@ -4,7 +4,7 @@
     <div class="address-item">
       <van-address-list
         v-model="chosenAddressId"
-        :list="list"
+        :list="addressInfolist"
         default-tag-text="默认"
         @add="onAdd"
         @edit="onEdit"
@@ -26,7 +26,7 @@ export default {
       // from：从购物袋页面进入订单详情时，点击返回到达 /cart；从个人主页进入订单详情时，点击返回到达 /user
       from: this.$route.query.from ? `/${this.$route.query.from}` : '',
       chosenAddressId: '1',
-      list: []
+      addressInfolist: []
     }
   },
   methods: {
@@ -43,7 +43,7 @@ export default {
   },
   async mounted() {
     const { data } = await getAddressList()
-    this.list = data.map(item => {
+    this.addressInfolist = data.map(item => {
       return {
         id: item.addressId,
         name: item.userName,
