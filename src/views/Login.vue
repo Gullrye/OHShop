@@ -150,7 +150,7 @@ export default {
         })
         setLocal('token', data)
         // 设置 token 后刷新跳转
-        window.location.href = '/'
+        window.location.href = './'
       } else {
         await register({
           loginName: values.username1,

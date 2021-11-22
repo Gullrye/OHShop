@@ -64,6 +64,23 @@
   }
   ```
 
+  - `yarn build` 打包到 gitee pages 遇到的问题
+
+  ```js
+  // 静态资源路径默认为 '/'，导致找不到文件
+  // 解决，在 vue.config.js 中设置如下
+  module.exports = {
+    publicPath: process.env.NODE_ENV === 'production' ? './' : '/' // 部署应用包时的基本 URL
+  }
+
+  // Login.vue 中设置 token 后进行跳转使用 window.location.href = '/'，但是访问不到部署后的路径
+  // 改为
+  window.location.href = './'
+
+  // 修改 public/index.hteml 中的阿里 iconfont css 链接，即加上 http:
+  href = "http://at.alicdn.com/t/font_2846922_1288uo7so1wd.css"
+  ```
+
 - 已注册账号
 
   - 账号 密码
