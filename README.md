@@ -29,6 +29,7 @@
 - 使用 Vant 的 Area 省市区选择及默认的省市区数据，实现地址管理
 - Vuex 中设置 `keyword`，实现从 `ProductDetail.vue` 跳转到 `ProductList.vue` 时，保留搜索框关键字状态
 - 地址管理链接 bug(`this.cartItemIds` 未赋值) 处理
+- 使用 `keep-alive` 缓存首页等
 - About.vue 中添加地图
 
   - `npm install -S vue-amap`

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view class="router-view" />
+      <keep-alive include="Home, Category">
+        <router-view class="router-view" />
+      </keep-alive>
     </transition>
     <nav-bar v-if="isShowNav"></nav-bar>
   </div>
