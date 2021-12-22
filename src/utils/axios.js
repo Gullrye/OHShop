@@ -4,8 +4,8 @@ import router from '../router'
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === 'development'
-    ? '//47.99.134.126:28019/api/v1'
-    : '//47.99.134.126:28019/api/v1'
+    ? 'http://47.99.134.126:28019/api/v1'
+    : 'http://47.99.134.126:28019/api/v1'
 // `withCredentials` indicates whether or not cross-site Access-Control requests
 axios.defaults.withCredentials = true
 // `headers` are custom headers to be sent
