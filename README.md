@@ -81,7 +81,7 @@
   // 修改 public/index.hteml 中的阿里 iconfont css 链接，即加上 https:
   href = "https://at.alicdn.com/t/font_2846922_1288uo7so1wd.css"
   
-  // 接口地址带上 http t
+  // 接口地址带上 http 头
   ```
 
 - 已注册账号
