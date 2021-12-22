@@ -73,13 +73,15 @@
   module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? './' : '/' // 部署应用包时的基本 URL
   }
-
+  
   // Login.vue 中设置 token 后进行跳转使用 window.location.href = '/'，但是访问不到部署后的路径
   // 改为
   window.location.href = './'
-
-  // 修改 public/index.hteml 中的阿里 iconfont css 链接，即加上 http:
-  href = "http://at.alicdn.com/t/font_2846922_1288uo7so1wd.css"
+  
+  // 修改 public/index.hteml 中的阿里 iconfont css 链接，即加上 https:
+  href = "https://at.alicdn.com/t/font_2846922_1288uo7so1wd.css"
+  
+  // 接口地址带上 http t
   ```
 
 - 已注册账号
