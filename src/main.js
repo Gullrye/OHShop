@@ -28,6 +28,7 @@ import {
   AddressEdit,
   Card
 } from 'vant'
+import { Lazyload } from 'vant'
 import 'lib-flexible/flexible'
 import { getRealImg } from './common/js/utils'
 
@@ -59,6 +60,9 @@ const components = [
 for (const cpn of components) {
   Vue.use(cpn)
 }
+Vue.use(Lazyload, {
+  lazyComponent: true
+})
 
 Vue.config.productionTip = false
 

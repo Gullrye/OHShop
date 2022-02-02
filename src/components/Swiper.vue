@@ -19,9 +19,10 @@ export default {
 
 <style lang="less" scoped>
 .my-swipe .van-swipe-item {
+  aspect-ratio: 20 / 9;
   img {
     width: 100%;
-    height: auto;
+    aspect-ratio: 20 / 9;
   }
 }
 ::v-deep .van-swipe__indicator {

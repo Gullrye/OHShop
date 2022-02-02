@@ -113,7 +113,7 @@ export default {
 <style lang="less" scoped>
 @import '../common/style/mixin';
 .order-box {
-  .order-header {
+  .order-tab {
     position: fixed;
     top: 0;
     left: 0;

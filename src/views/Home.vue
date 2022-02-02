@@ -34,7 +34,7 @@
           :key="item.goodsId"
           @click="goToDetail(item)"
         >
-          <img :src="getRealImg(item.goodsCoverImg)" />
+          <img v-lazy="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">￥ {{ item.sellingPrice }}</div>
@@ -51,7 +51,7 @@
           :key="item.goodsId"
           @click="goToDetail(item)"
         >
-          <img :src="getRealImg(item.goodsCoverImg)" />
+          <img v-lazy="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">￥ {{ item.sellingPrice }}</div>
@@ -68,7 +68,7 @@
           :key="item.goodsId"
           @click="goToDetail(item)"
         >
-          <img :src="getRealImg(item.goodsCoverImg)" />
+          <img v-lazy="getRealImg(item.goodsCoverImg)" />
           <div class="good-desc">
             <div class="title">{{ item.goodsName }}</div>
             <div class="price">￥ {{ item.sellingPrice }}</div>
@@ -311,6 +311,7 @@ export default {
       img {
         display: block;
         width: 120px;
+        height: 120px;
         margin: 0 auto;
       }
       .good-desc {
